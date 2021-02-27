@@ -1,0 +1,36 @@
+{
+    "nombre":"laptop",
+    "precio": 40.2,
+    "active": false,
+    "created_ad": new Date("12/12/1999"),
+    "somedata":[1, "a", []],
+    "factucturer":{
+        "name": "dell",
+        "version":"xps",
+        "location":{
+            "city":"usa",
+            "adress":"adsada"
+        } 
+    } 
+}
+
+//PARA INERTAR VARIOS DATOS
+
+db.products.insert([
+    {
+        "name": "mouse",
+        "description": "razer mouse",
+        "tags": ["computers", "gaming"],
+        "quantity": 14,
+        "created_at": new Date()
+    },
+
+    {
+        "name": "monitor",
+        "description": "lg monitor",
+        "tags": ["computers", "gaming"],
+        "quantity": 3,
+        "created_at": new Date()
+    }
+
+])
