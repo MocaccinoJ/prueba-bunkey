@@ -6,8 +6,8 @@ const { authJwt } = require('../middlewares');
 
 router.post('/addStudentEnrollment', authJwt, enrollmentCTRL.enrollmentCreation);
 router.get('/getEnrollment', authJwt, enrollmentCTRL.getEnrollment);
-router.post('/actCredits', authJwt, enrollmentCTRL.actCredits);
-router.get('/deleteEnrollment', authJwt, enrollmentCTRL.deleteEnrollment);
+router.put('/actCredits', authJwt, enrollmentCTRL.actCredits);
+router.delete('/deleteEnrollment', authJwt, enrollmentCTRL.deleteEnrollment);
 
 
 module.exports = router;

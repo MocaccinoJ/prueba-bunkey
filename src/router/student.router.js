@@ -5,6 +5,6 @@ const { studentCTRL } = require('../controllers');
 const { authJwt } = require('../middlewares');
 
 router.post('/addStudent', authJwt, studentCTRL.addStudent);
-router.delete('/deleteStudent', studentCTRL.deleteStudent);
+router.delete('/deleteStudent', authJwt, studentCTRL.deleteStudent);
 
 module.exports = router;

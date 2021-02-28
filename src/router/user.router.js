@@ -4,8 +4,8 @@ const router = express.Router();
 const { userCTRL } = require('../controllers');
 const { authJwt } = require('../middlewares');
 
-router.post('/auth/signup', authJwt, userCTRL.signUp);
-router.post('/auth/signin', authJwt, userCTRL.signIn);
+router.post('/auth/signup', userCTRL.signUp);
+router.post('/auth/signin', userCTRL.signIn);
 router.delete('/delete', authJwt, userCTRL.deleteUser);
 
 module.exports = router;
