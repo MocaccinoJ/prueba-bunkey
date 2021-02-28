@@ -6,12 +6,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-
 //connecting to database
-mongoose.connect('mongodb://localhost/crud-bunkey', { useNewUrlParser: true })
-    .then(db => console.log('Db conectada'))
-    .catch(err => console.error(err));
-
+require('./database');
 
 // importing routes
 const { courses, enrollment, students, users, querys } = require('./router');
