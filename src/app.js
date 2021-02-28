@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/crud-bunkey', { useNewUrlParser: true })
 
 
 // importing routes
-const indexRoutes = require('./routes/index')
+const { courses, enrollment, students, users, querys } = require('./router');
 
 // settings 
 app.set('port', process.env.PORT || 4000);
@@ -27,8 +27,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //routes
-app.use('/', indexRoutes);
-
+app.use('/courses', courses);
+app.use('/enrollment', enrollment);
+app.use('/students', students);
+app.use('/users', users);
+app.use('/querys', querys);
 
 //starting the server
 app.listen(app.get('port'), () => {

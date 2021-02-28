@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const User = require('../models/users');
 
-export const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
     let token = req.headers['authorization']
     if (!token) {
         return res.json('No token provided').status(403);
@@ -14,3 +14,5 @@ export const verifyToken = async (req, res, next) => {
     };
     next()
 };
+
+module.exports = verifyToken;

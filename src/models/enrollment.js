@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Student = mongoose.model('students');
+const Student = require('./students');
 const Course = mongoose.model('courses');
 
 const EnrollementSchema = new Schema(
@@ -11,7 +11,7 @@ const EnrollementSchema = new Schema(
             [
                 {
                     credits: Number,
-                    _id: { type: Schema.ObjectId, ref: "Student" }
+                    _id: { type: Schema.ObjectId, ref: "Students" }
                 }
             ]
     }

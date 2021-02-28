@@ -5,19 +5,16 @@ const router = express.Router();
 const Course = require('../models/courses');
 const config = require('../config');
 const jwt = require('jsonwebtoken');
-import { authJwt } from '../middlewares';
 
-router.get('/', (req, res) => {
-    res.render('index');
-});
 
 //COURSE CREATION
-router.post('/addCourse', authJwt.verifyToken, async (req, res) => {
-
+const addCourse = async (req, res, next) => {
     const courses = await new Course(req.body);
     courses.save();
 
-    res.send('recieved');
-});
+    res.send('recived');
+};
 
-module.exports = router;
+module.exports = {
+    addCourse
+}

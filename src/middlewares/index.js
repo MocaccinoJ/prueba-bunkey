@@ -1,3 +1,3 @@
-import * as authJwt from './authjwt';
+const authJwt = require('./authjwt');
 
-export { authJwt };
+module.exports = { authJwt };

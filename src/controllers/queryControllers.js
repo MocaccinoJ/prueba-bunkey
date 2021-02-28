@@ -1,35 +1,26 @@
+const { compareSync } = require('bcryptjs');
 const express = require('express');
 const router = express.Router();
 
 //INTERACTION WITH DATABASE
-const User = require('../models/users');
-const Student = require('../models/students');
 const Course = require('../models/courses');
 const Enrollment = require('../models/enrollment');
-const config = require('../config');
-const jwt = require('jsonwebtoken');
-import { authJwt } from '../middlewares';
-import { find } from '../models/users';
-
-router.get('/', (req, res) => {
-    res.render('index');
-});
-
+const Student = require('../models/students')
 //QUERYS
 
 //GET STUDENTS
-router.get('/studentsBy50Credits', authJwt.verifyToken, async (req, res) => {
+const studentsBy50Credits = async (req, res, next) => {
     const findCourses = await Enrollment.find();
     const studentsCredits = findCourses.map(course => {
         const filterCoursesStudents = course.students.filter(cour => cour.credits >= 50);
 
-        res.json(filterCoursesStudentsourses);
+        res.json(filterCoursesStudents);
     });
-});
+
+};
 
 //COURSE WITH MORE STUDENTS
-
-router.get('corseWithMoreStudents', authJwt.verifyToken, async (req, res) => {
+const courseWithMoreStudents = async (req, res, next) => {
     const findCourses = await Enrollment.find();
     let largest = 0;
     let enroll = "";
@@ -38,31 +29,35 @@ router.get('corseWithMoreStudents', authJwt.verifyToken, async (req, res) => {
             enroll = enrollment;
         }
     });
-    console.log(enroll);
-});
+    res.json(enroll);
+};
 
 //STUDENTS, COURSES, CREDITS
-router.get('/studentsCoursesCredits/:name', authJwt.verfyToken, async (req, res) => {
-    const students = await Students.find({ name: req.params.name });
-    const enrollment = await Enrollment.find();
-    let newArray = [];
+const studentsCoursesCredits = async (req, res, next) => {
+    const students = await Student.find({ name: req.params.name });
+    const enrollment = await Enrollment.find()
+    let array = []
     enrollment.map(async enroll => {
-        let newArray = [];
-        const filterE = enroll.students.filter(aId => aId._id == students[0]._id.toString());
-        const courseName = await Course.find({ _id: enroll.courses });
+        const filtro = enroll.students.filter(n => n._id == students[0]._id.toString())
+        const courseName = await Course.find({ _id: enroll.courses })
         const obj = {
             name: courseName[0].name,
-            credits: filterE[0].credits
-        };
-        newArray.push(obj);
+            credits: filtro[0].credits
+        }
+        array.push(obj);
     });
 
-    let newObject = {
+    let objetoParaMostrar = {
         _id: students[0]._id,
         name: students[0].name,
-        courses: newArray
-    };
-    await res.json(newObject);
-});
+        courses: array
+    }
+    console.log(objetoParaMostrar)
+    await res.json(objetoParaMostrar);
+};
 
-module.exports = router;
+module.exports = {
+    studentsBy50Credits,
+    courseWithMoreStudents,
+    studentsCoursesCredits
+};
